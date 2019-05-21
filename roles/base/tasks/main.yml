@@ -1,0 +1,20 @@
+---
+# We set the hostname to the value in the inventory
+- name: Change hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Update the system
+  yum:
+    name: "*"
+    state: latest
+
+- name: Install basic utilities
+  yum:
+    name: ['epel-release', 'tmux', 'vim', 'wget', 'nfs-utils'] 
+    state: present
+
+- name: Copy motd
+  template:
+    src: motd.j2
+    dest: /etc/motd

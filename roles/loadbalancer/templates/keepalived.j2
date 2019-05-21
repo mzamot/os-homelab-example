@@ -1,0 +1,20 @@
+#### File handled by Ansible.
+
+vrrp_script chk_nginx {
+  script "pidof nginx" # check the nginx process
+  interval 2 # every 2 seconds
+  weight 2 # add 2 points if OK
+}
+
+vrrp_instance LAB {
+  interface {{ keepalived_nic }} # interface to monitor
+  state {{ keepalived_state }} 
+  virtual_router_id {{ keepalived_vri }}
+  priority {{ keepalived_priority }}
+  virtual_ipaddress {
+    {{ keepalived_vip }} 
+  }
+  track_script {
+    chk_nginx
+  }
+}

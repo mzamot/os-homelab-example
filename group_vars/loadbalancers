@@ -1,0 +1,4 @@
+---
+keepalived_nic: eth0
+keepalived_vri: 51
+keepalived_vip: 192.168.2.180

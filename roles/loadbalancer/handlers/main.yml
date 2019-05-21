@@ -1,0 +1,13 @@
+---
+# handlers file for loadbalancer
+- name: restart nginx 
+  systemd:
+    name: nginx
+    enabled: yes
+    state: restarted
+  
+- name: restart keepalived
+  service:
+    name: keepalived
+    enabled: yes
+    state: restarted
