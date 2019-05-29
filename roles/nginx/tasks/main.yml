@@ -1,0 +1,24 @@
+---
+# tasks file for nginx
+- name: Install nginx
+  yum:
+    name: 'nginx'
+    state: 'latest'
+  notify: start nginx
+
+- name: Create web directory
+  file:
+    path: /var/www
+    state: directory
+    mode: '0755'
+
+- name: Create index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/index.html
+
+- name: Configure nginx
+  template:
+    src: lb.conf.j2
+    dest: /etc/nginx/conf.d/lb.conf
+  notify: restart nginx
